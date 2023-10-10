@@ -16,7 +16,7 @@ async def send_message(message):
     await writer.wait_closed()
 """
 
-dados_exemplos = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+dados_exemplos = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100] #Vou gerar aleatoriamente mesmo
 
 """
 async def enviar_dados(reader, writer):
@@ -45,29 +45,29 @@ async def enviar_dados(sensor_id, server_port):
     print(f"Conexão com Sensor {sensor_id} estabelecida")
 
     while True:
-        # Simula a leitura de dados do sensor (gera um valor aleatório)
-        dados_sensor = random.uniform(0.0, 100.0)
+        
+        dados_sensor = random.uniform(0.0, 100.0)# Simula a leitura de dados do sensor (gera um valor aleatório)
         mensagem = f"Dado do sensor {sensor_id}: {dados_sensor}"
 
-        # Envia os dados para o servidor do sensor correspondente
-        writer.write(mensagem.encode())
+        
+        writer.write(mensagem.encode())# Envia os dados para o servidor do sensor correspondente
         await writer.drain()
 
         print(f"Dados enviados para Sensor {sensor_id}: {mensagem}")
 
-        # Aguarda um intervalo de tempo antes de enviar o próximo dado
-        await asyncio.sleep(random.uniform(1, 5))
+        
+        await asyncio.sleep(random.uniform(1, 5))# Aguarda um intervalo de tempo antes de enviar o próximo dado
         
 async def main():
-    # Define os IDs e portas dos sensores
-    sensores = [
+   
+    sensores = [ # Define os IDs e portas dos sensores
         {"id": "Sensor-1", "port": 8888},
         {"id": "Sensor-2", "port": 8889},
         {"id": "Sensor-3", "port": 8890},
     ]
 
-    # Inicia tarefas para conectar e enviar dados para cada sensor
-    for sensor in sensores:
+    
+    for sensor in sensores: # Inicia tarefas para conectar e enviar dados para cada sensor
         asyncio.create_task(enviar_dados(sensor["id"], sensor["port"]))
 
     while True:
